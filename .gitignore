@@ -1,0 +1,18 @@
+# Dependências e Sistema
+node_modules/
+.DS_Store
+.env
+
+# Arquivos da Shopify CLI 3.0
+.shopify-cli/
+.shopify/
+
+# --- A ZONA DE PERIGO ---
+# O arquivo settings_data.json guarda as configurações do painel "Personalizar" (cores, textos, imagens).
+# Se você versionar isso e o cliente mudar algo lá no painel, quando você der deploy,
+# vai sobrescrever as mudanças dele com a sua versão velha.
+# Para evitar conflitos, a maioria dos devs ignora este arquivo:
+config/settings_data.json
+
+# Opcional: Ignorar templates que são gerados automaticamente se usar apps específicos
+templates/*.json
