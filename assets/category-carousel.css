@@ -1,0 +1,109 @@
+.category-carousel-1 {
+  position: relative;
+  padding: 0 40px;
+  overflow: hidden;
+  margin: 40px 0;
+  /* Centraliza verticalmente e horizontalmente */
+  max-width: 100%;
+  /* Largura máxima para não ocupar 100% da tela */
+  width: 100%;
+}
+
+.category-carousel-1__heading {
+  font-size: 24px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 24px;
+  color: #2c1810;
+}
+
+.category-carousel-1__track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 16px 8px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.category-carousel-1__track::-webkit-scrollbar {
+  display: none;
+}
+
+.category-carousel-1__item {
+  flex-shrink: 0;
+  width: 180px;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.category-carousel-1__image {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #e8e0d8;
+  background: #f5f0eb;
+  transition: all 0.3s ease;
+}
+
+.category-carousel-1__item:hover .category-carousel-1__image {
+  border-color: #d97706;
+  box-shadow: 0 8px 24px rgba(217, 119, 6, 0.15);
+}
+
+.category-carousel-1__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.category-carousel-1__item:hover .category-carousel-1__image img {
+  transform: scale(1.1);
+}
+
+.category-carousel-1__name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2c1810;
+  margin-top: 12px;
+}
+
+.category-carousel-1__count {
+  font-size: 12px;
+  color: #8c7e72;
+}
+
+.category-carousel-1__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  border: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.category-carousel-1__arrow:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+.category-carousel-1__arrow--left {
+  left: 0;
+}
+
+.category-carousel-1__arrow--right {
+  right: 0;
+}

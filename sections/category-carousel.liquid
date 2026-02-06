@@ -1,0 +1,114 @@
+{% comment %} 
+   Carrossel de Categorias Estilo 1 - Circular Infinito 
+   Adicione este snippet em sections/ do seu tema Shopify 
+ {% endcomment %} 
+
+ {{ 'category-carousel.css' | asset_url | stylesheet_tag }}
+ <script src="{{ 'category-carousel.js' | asset_url }}" defer="defer"></script>
+ 
+ {% schema %} 
+ { 
+   "name": "Categorias Circular", 
+   "settings": [ 
+     { "type": "text", "id": "heading", "label": "Título", "default": "Categorias" } 
+   ], 
+   "blocks": [ 
+    { 
+      "type": "category", 
+      "name": "Categoria", 
+      "settings": [ 
+        { "type": "text", "id": "name", "label": "Nome" }, 
+        { "type": "image_picker", "id": "image", "label": "Imagem (Upload)" },
+        { "type": "text", "id": "asset_image", "label": "Imagem de Assets (nome do arquivo, ex: foto.png)" },
+        {
+          "type": "select",
+          "id": "icon_type",
+          "label": "Ícone",
+          "options": [
+            { "value": "accessories", "label": "Acessórios" },
+            { "value": "toys", "label": "Brinquedos" },
+            { "value": "beds", "label": "Camas" },
+            { "value": "collars", "label": "Coleiras" },
+            { "value": "food", "label": "Comida" },
+            { "value": "grooming", "label": "Higiene" },
+            { "value": "clothing", "label": "Roupas" },
+            { "value": "furniture", "label": "Móveis" }
+          ],
+          "default": "accessories"
+        },
+        { "type": "color", "id": "bg_color", "label": "Cor de Fundo", "default": "#f3f4f6" }, 
+        { "type": "url", "id": "link", "label": "Link" }, 
+        { "type": "text", "id": "count", "label": "Qtd Produtos", "default": "0" } 
+      ] 
+    } 
+  ], 
+   "presets": [{ "name": "Categorias Circular" }] 
+ } 
+ {% endschema %} 
+ 
+ <div class="category-carousel-1" data-carousel="circular"> 
+   {% if section.settings.heading != blank %} 
+     <h2 class="category-carousel-1__heading">{{ section.settings.heading }}</h2> 
+   {% endif %} 
+ 
+   <button class="category-carousel-1__arrow category-carousel-1__arrow--left" aria-label="Anterior"> 
+     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg> 
+   </button> 
+   <button class="category-carousel-1__arrow category-carousel-1__arrow--right" aria-label="Próximo"> 
+     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg> 
+   </button> 
+ 
+   <div class="category-carousel-1__track"> 
+     {% comment %} Triplicar itens para scroll infinito {% endcomment %} 
+     {% for pass in (1..3) %} 
+       {% for block in section.blocks %} 
+         <a href="{{ block.settings.link }}" class="category-carousel-1__item" {{ block.shopify_attributes }}> 
+          <div class="category-carousel-1__image" style="background-color: {{ block.settings.bg_color }}; display: flex; align-items: center; justify-content: center; overflow: hidden;"> 
+            {% if block.settings.image != blank %}
+              <img 
+                src="{{ block.settings.image | image_url: width: 360 }}" 
+                alt="{{ block.settings.name }}" 
+                loading="lazy" 
+                width="180" 
+                height="180" 
+                style="object-fit: cover; width: 100%; height: 100%;"
+              >
+            {% elsif block.settings.asset_image != blank %}
+              <img 
+                src="{{ block.settings.asset_image | asset_url }}" 
+                alt="{{ block.settings.name }}" 
+                loading="lazy" 
+                width="180" 
+                height="180" 
+                style="object-fit: cover; width: 100%; height: 100%;"
+              >
+            {% else %}
+              <div style="width: 50%; height: 50%; color: #333; display: flex; align-items: center; justify-content: center;">
+                {% case block.settings.icon_type %}
+                  {% when 'accessories' %}
+                    <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                  {% when 'toys' %}
+                    <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                  {% when 'beds' %}
+                    <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M2 20h20"/></svg>
+                  {% when 'collars' %}
+                    <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+                  {% when 'food' %}
+                     <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+                  {% when 'grooming' %}
+                     <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                  {% when 'clothing' %}
+                     <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.4a2 2 0 0 0-2-2h-12.76a2 2 0 0 0-2 2L2 10l2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8l2-2-1.62-6.6z"/></svg>
+                  {% when 'furniture' %}
+                     <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="14" width="16" height="6" rx="2"/><path d="M4 14V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8"/></svg>
+                {% endcase %}
+              </div>
+            {% endif %}
+          </div> 
+           <h3 class="category-carousel-1__name">{{ block.settings.name }}</h3> 
+           <span class="category-carousel-1__count">{{ block.settings.count }} produtos</span> 
+         </a> 
+       {% endfor %} 
+     {% endfor %} 
+   </div> 
+ </div>
