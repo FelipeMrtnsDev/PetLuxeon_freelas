@@ -277,6 +277,18 @@
     .custom-nav-list {
       display: none; /* Esconde menu texto no mobile por enquanto ou usa drawer */
     }
+    
+    /* Forçar estado "compacto" no mobile sempre */
+    .header__heading-logo-wrapper {
+      max-height: 70px !important; /* Altura fixa pequena para mobile */
+      transform: none !important; /* Remove escala */
+    }
+
+    /* Remover transições de tamanho no mobile para evitar efeito de encolhimento */
+    .header, .header__heading-logo-wrapper {
+      transition: none !important;
+    }
+    
     .header__left {
       /* Reativa o drawer menu button se necessário */
     }
@@ -419,14 +431,14 @@
       {% render 'header-search', input_id: 'Search-In-Modal' %}
 
       <!-- Cart Button -->
-      <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble" style="margin-right: 0.1rem;" onclick="event.preventDefault(); const cd = document.querySelector('cart-drawer'); if(cd) cd.open(this);">
+      <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble" onclick="event.preventDefault(); const cd = document.querySelector('cart-drawer'); if(cd) cd.open(this);">
         <span class="svg-wrapper" style="position: relative;">
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="9" cy="21" r="1"></circle>
             <circle cx="20" cy="21" r="1"></circle>
             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
           </svg>
-          <div class="cart-count-bubble" style="background-color: #d97706; color: #fff; position: absolute; top: -7px; right: -7px; left: auto; bottom: auto; width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+          <div class="cart-count-bubble" style="background-color: #d97706; color: #fff; position: absolute; top: -7px; right: -7px; left: auto; bottom: auto; width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center; border-radius: 50%; z-index: 2;">
             {%- if cart.item_count < 100 -%}
               <span aria-hidden="true" style="font-size: 1.1rem; font-weight: bold;">{{ cart.item_count }}</span>
             {%- endif -%}
@@ -437,7 +449,7 @@
       </a>
 
       <!-- Cart Price -->
-      <a href="{{ routes.cart_url }}" class="header__icon header__icon--price link focus-inset small-hide" id="cart-icon-price" style="text-decoration: none; margin-left: 0.5rem; font-size: 1.4rem; font-weight: bold; color: rgb(var(--color-foreground)); display: flex; align-items: center;" onclick="event.preventDefault(); const cd = document.querySelector('cart-drawer'); if(cd) cd.open(this);">
+      <a href="{{ routes.cart_url }}" class="header__icon header__icon--price link focus-inset small-hide" id="cart-icon-price" style="text-decoration: none !important; margin-left: 0.5rem; font-size: 1.4rem; font-weight: bold; color: rgb(var(--color-foreground)); display: flex; align-items: center;" onclick="event.preventDefault(); const cd = document.querySelector('cart-drawer'); if(cd) cd.open(this);">
         {{ cart.total_price | money }}
       </a>
     </div>
