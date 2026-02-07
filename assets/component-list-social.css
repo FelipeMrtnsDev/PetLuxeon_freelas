@@ -30,3 +30,14 @@
 .list-social__link:hover .icon {
   transform: scale(1.07);
 }
+
+.list-social__item .icon-instagram {
+  color: #E1306C;
+  transform: scale(1.2);
+  transition: all 0.3s ease;
+}
+
+.list-social__link:hover .icon-instagram {
+  transform: scale(1.4);
+  filter: drop-shadow(0 0 5px rgba(225, 48, 108, 0.5));
+}
