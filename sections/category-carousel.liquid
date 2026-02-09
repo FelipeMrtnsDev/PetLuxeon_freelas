@@ -18,6 +18,7 @@
       "name": "Categoria", 
       "settings": [ 
         { "type": "text", "id": "name", "label": "Nome" }, 
+        { "type": "collection", "id": "collection", "label": "Collection" },
         { "type": "image_picker", "id": "image", "label": "Imagem (Upload)" },
         { "type": "text", "id": "asset_image", "label": "Imagem de Assets (nome do arquivo, ex: foto.png)" },
         {
@@ -106,8 +107,14 @@
             {% endif %}
           </div> 
            <h3 class="category-carousel-1__name">{{ block.settings.name }}</h3> 
-           <span class="category-carousel-1__count">{{ block.settings.count }}</span> 
-         </a> 
+          <span class="category-carousel-1__count">
+            {%- if block.settings.collection != blank -%}
+              {{ block.settings.collection.all_products_count }} products
+            {%- else -%}
+              {{ block.settings.count }}
+            {%- endif -%}
+          </span> 
+        </a> 
        {% endfor %} 
      {% endfor %} 
    </div> 

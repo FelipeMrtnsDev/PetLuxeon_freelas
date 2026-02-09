@@ -111,6 +111,12 @@
   font-weight: 600;
   margin-bottom: 8px;
   line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 2.8em;
 }
 
 .product-card-1__title a {
@@ -146,6 +152,7 @@
 }
 
 .product-card-1__btn-cart {
+  margin-top: auto;
   width: 100%;
   display: flex;
   align-items: center;

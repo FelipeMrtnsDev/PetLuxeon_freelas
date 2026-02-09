@@ -450,7 +450,7 @@
 
       <!-- Cart Price -->
       <a href="{{ routes.cart_url }}" class="header__icon header__icon--price link focus-inset small-hide" id="cart-icon-price" style="text-decoration: none !important; margin-left: 0.5rem; font-size: 1.4rem; font-weight: bold; color: rgb(var(--color-foreground)); display: flex; align-items: center;" onclick="event.preventDefault(); const cd = document.querySelector('cart-drawer'); if(cd) cd.open(this);">
-        {{ cart.total_price | money }}
+        <span class="cart-total-text">{{ cart.total_price | money }}</span>
       </a>
     </div>
 
@@ -481,6 +481,27 @@
             e.preventDefault();
             cartDrawer.open(cartIconBubble);
          }
+      });
+    }
+
+    // Subscribe to cart updates using the theme's PubSub events
+    if (typeof subscribe !== 'undefined' && typeof PUB_SUB_EVENTS !== 'undefined') {
+      subscribe(PUB_SUB_EVENTS.cartUpdate, (event) => {
+        // Fetch the latest cart data to ensure we have the total_price
+        // Sometimes event.cartData might be partial or we want to be safe
+        fetch(window.Shopify.routes.root + 'cart.js')
+          .then(res => res.json())
+          .then(cart => {
+            const priceElement = document.querySelector('#cart-icon-price .cart-total-text') || document.querySelector('#cart-icon-price');
+            if (priceElement) {
+              const formattedPrice = new Intl.NumberFormat(document.documentElement.lang || 'pt-BR', {
+                style: 'currency',
+                currency: cart.currency
+              }).format(cart.total_price / 100);
+              priceElement.textContent = formattedPrice;
+            }
+          })
+          .catch(err => console.error('Error updating cart price:', err));
       });
     }
   });
