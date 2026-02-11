@@ -107,3 +107,28 @@
 .category-carousel-1__arrow--right {
   right: 0;
 }
+
+@media screen and (max-width: 749px) {
+  .category-carousel-1 {
+    padding: 0 10px;
+  }
+
+  .category-carousel-1__item {
+    width: 110px;
+  }
+
+  .category-carousel-1__image {
+    width: 110px;
+    height: 110px;
+    border-width: 3px;
+  }
+  
+  .category-carousel-1__name {
+      font-size: 13px;
+      margin-top: 8px;
+  }
+  
+  .category-carousel-1__count {
+      font-size: 11px;
+  }
+}

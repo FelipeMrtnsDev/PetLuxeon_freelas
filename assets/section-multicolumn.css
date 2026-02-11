@@ -24,33 +24,10 @@
 }
 
 @media screen and (max-width: 989px) {
-  .multicolumn-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    padding: 0 1rem;
-  }
-
-  .multicolumn-list__item {
-    width: auto !important;
-    max-width: 32% !important;
-    /* 3 por linha no tablet/mobile */
-    min-width: 100px;
-    flex-grow: 1;
-  }
-
-  /* Em telas muito pequenas, 2 por linha */
-  @media screen and (max-width: 400px) {
-    .multicolumn-list__item {
-      max-width: 48% !important;
-    }
-  }
-
+  /* Mobile: Vertical Card Layout (Icon top, Text bottom) */
   .multicolumn-card {
     display: flex !important;
     flex-direction: column !important;
-    /* Icone em cima, texto embaixo */
     align-items: center !important;
     justify-content: flex-start !important;
     text-align: center !important;
@@ -74,7 +51,6 @@
 
   .multicolumn-card__info h3 {
     font-size: 1.1rem !important;
-    /* Fonte menor para caber */
     margin-bottom: 0.2rem !important;
     font-weight: bold;
   }
@@ -82,6 +58,36 @@
   .multicolumn-card__info .rte {
     font-size: 1rem !important;
     line-height: 1.2;
+  }
+}
+
+/* Desktop: Horizontal Card Layout (Icon left, Text right) */
+@media screen and (min-width: 990px) {
+  .multicolumn-card {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    text-align: left !important;
+    justify-content: flex-start !important;
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+
+  .multicolumn-card__icon-wrapper {
+    margin: 0 !important;
+    width: 50px !important;
+    height: 50px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .multicolumn-card__info {
+    width: auto !important;
+    padding: 0 !important;
+  }
+  
+  .multicolumn-card__info h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
   }
 }
 
@@ -148,7 +154,7 @@
 }
 
 .multicolumn-card__info> :nth-child(2) {
-  margin-top: 1rem;
+  margin-top: 0rem;
 }
 
 .multicolumn-list__item.center .media--adapt,
