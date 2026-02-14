@@ -33,13 +33,14 @@ slider-component.slider-component-full-width {
 @media screen and (max-width: 749px) {
   .slider.slider--mobile {
     position: relative;
-    flex-wrap: inherit;
+    flex-wrap: nowrap;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     scroll-padding-left: 1.5rem;
     -webkit-overflow-scrolling: touch;
     margin-bottom: 1rem;
+    display: flex;
   }
 
   /* Fix to show some space at the end of our sliders in all browsers */
@@ -47,21 +48,27 @@ slider-component.slider-component-full-width {
     content: '';
     width: 0;
     padding-left: 1.5rem;
+    flex-shrink: 0;
   }
 
   .slider.slider--mobile .slider__slide {
     margin-bottom: 0;
     padding-top: max(var(--focus-outline-padding), var(--shadow-padding-top));
     padding-bottom: max(var(--focus-outline-padding), var(--shadow-padding-bottom));
+    width: calc(50% - 1.5rem / 2);
+    /* Force 2 items visible */
+    flex-shrink: 0;
+    scroll-snap-align: start;
   }
+}
 
-  .slider.slider--mobile.contains-card--standard .slider__slide:not(.collection-list__item--no-media) {
-    padding-bottom: var(--focus-outline-padding);
-  }
+.slider.slider--mobile.contains-card--standard .slider__slide:not(.collection-list__item--no-media) {
+  padding-bottom: var(--focus-outline-padding);
+}
 
-  .slider.slider--mobile.contains-content-container .slider__slide {
-    --focus-outline-padding: 0rem;
-  }
+.slider.slider--mobile.contains-content-container .slider__slide {
+  --focus-outline-padding: 0rem;
+}
 }
 
 @media screen and (min-width: 750px) {
@@ -399,13 +406,54 @@ slider-component.slider-component-full-width {
   }
 }
 
+/* Custom Scrollbar for Mobile/Tablet Slider */
+@media screen and (max-width: 989px) {
+
+  .slider--mobile,
+  .slider--tablet {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--color-foreground), 0.5) rgba(var(--color-foreground), 0.1);
+    padding-bottom: 10px;
+
+    /* Force overflow to allow scrolling and scrollbar visibility */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Webkit-specific styling for mobile browsers that support it */
+  .slider--mobile::-webkit-scrollbar,
+  .slider--tablet::-webkit-scrollbar {
+    display: block;
+    /* Force display */
+    height: 6px;
+    width: 6px;
+    -webkit-appearance: none;
+    /* Reset appearance */
+  }
+
+  .slider--mobile::-webkit-scrollbar-thumb,
+  .slider--tablet::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--color-foreground), 0.5);
+    border-radius: 4px;
+    visibility: visible;
+    /* Force visibility */
+  }
+
+  .slider--mobile::-webkit-scrollbar-track,
+  .slider--tablet::-webkit-scrollbar-track {
+    background: rgba(var(--color-foreground), 0.1);
+    border-radius: 4px;
+  }
+}
+
 /* Force contained slider behavior when page-width class is present on desktop slider component */
 @media screen and (min-width: 990px) {
   .slider-component-desktop.page-width {
     max-width: var(--page-width);
     margin-left: auto;
     margin-right: auto;
-    --desktop-margin-left-first-item: 0rem; /* Reset offset for contained slider */
+    --desktop-margin-left-first-item: 0rem;
+    /* Reset offset for contained slider */
   }
 
   .slider-component-desktop.page-width .slider--desktop {

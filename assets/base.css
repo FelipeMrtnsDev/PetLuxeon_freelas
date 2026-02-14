@@ -1074,7 +1074,8 @@ summary::-webkit-details-marker {
 
   .slider--tablet.grid--peek.grid--2-col-tablet-down .grid__item,
   .grid--peek .grid__item {
-    width: calc(50% - var(--grid-mobile-horizontal-spacing) - 3rem);
+    width: calc(66% - 1.5rem / 2);
+}
   }
 
   .slider--tablet.grid--peek.grid--1-col-tablet-down .grid__item,
@@ -2646,6 +2647,13 @@ menu-drawer+.header__search {
   .header:not(.header--top-center)>.header__search,
   .header--top-center *>.header__search {
     display: none;
+  }
+}
+
+/* Custom width for Buy 1 Get 1 section mobile slider cards */
+@media screen and (max-width: 749px) {
+  [id*="featured_collection_buy_1_get_1"] .slider.slider--tablet .slider__slide {
+    width: calc(66% - 1.5rem / 2);
   }
 }
 
